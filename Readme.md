@@ -30,17 +30,17 @@ and install python >3.7 on your computer, please! Check **ADD TO PATH** when ask
 
 ## Installation ##
 
-### Option 1: Download ```pyHeart4Fish_python``` folder ###
-1. Download pyHeart4Fish_python folder from [GitHub](https://github.com/ToReinberger/pyHeart4Fish)
+### Option 1: Download ```pyHeart4Fish_scripts``` folder ###
+1. Download pyHeart4Fish_python folder from [GitHub/ToReinberger/pyHeart4Fish](https://github.com/ToReinberger/pyHeart4Fish)
 2. Move the complete folder from ./downloads to a desired storage place <br/> 
    (e.g., C:\Users\<user_name>\Desktop\pyHeart4Fish_python)
 3. Open command line in Windows (e.g., by typing ```cmd``` in Windows search field)
-4. Move to the pyHeart4Fish folder by  typing ```cd C:\Users\<YOUR_USERNAME>\Desktop\pyHeart4Fish_python```
+4. Move to the pyHeart4Fish folder by  typing ```cd C:\Users\<YOUR_USERNAME>\Desktop\pyHeart4Fish_scripts```
 5. Install required packages by typing ```pip install -r requirements.txt``` <br/>
    or ```pip install -r requirements_for_installation.txt```
 
 ### Option 2: Download and run install ```install_pyHeart4Fish.py```  ###
-1. Download ```install_pyHeart4Fish.py``` from [GitHub](https://github.com/ToReinberger/pyHeart4Fish)
+1. Download ```install_pyHeart4Fish.py``` from [GitHub/ToReinberger/pyHeart4Fish](https://github.com/ToReinberger/pyHeart4Fish)
 2. Start ```install_pyHeart4Fish.py``` > double click  OR right click > open with Python
 3. Follow instructions
 
@@ -67,8 +67,8 @@ and install python >3.7 on your computer, please! Check **ADD TO PATH** when ask
 ### Step 1) Run heart_beat_GUI.py script ###
 
 1. If a Desktop shortcut has been created, double-click the ```pyHeart4Fish``` icon  (**Installation option 1**)
-2. OR right click on ```pyHeart4Fish_python/heart_beat_GUI.py``` > open with python (**Installation option 2**)
-3. OR in Windows console ``` python <YOUR_STORAGE_PATH>/pyHeart4Fish_python/heart_beat_GUI.py``` (**Installation option 2**)
+2. OR right click on ```pyHeart4Fish_scripts/heart_beat_GUI.py``` > open with python (**Installation option 2**)
+3. OR in Windows console ``` python <YOUR_STORAGE_PATH>/pyHeart4Fish_scripts/heart_beat_GUI.py``` (**Installation option 2**)
 4. OR start ```heart_beat_GUI.py``` in a Python IDE of your choice (e.g., Pycharm, KITE, Notepad++)
 5. OR double-click on ```pyHeart4Fish_exe/heart_beat_GUI.exe``` (**Installation option 3**)
 
@@ -353,7 +353,7 @@ Once all fish hearts have been analyzed you can choose to open the summary Excel
 install the package ```pyshortcuts``` first by typing ```pip install pyshortcuts``` in Windows console <br/>
 and run again ```install_pyHeart4Fish.py```
 * You might also install all packages in ```requirements.txt``` separately from 
-(see [OneDrive/pyHeart4Fish_python](https://1drv.ms/u/s!AufmqdD8moMXgc5_OE-MnNHlOM-bcQ?e=yPcRcx/pyHeart4Fish_python))  
+(see [GitHub/ToReinberger/pyHeart4Fish](https://github.com/ToReinberger/pyHeart4Fish)  
 by typing ```pip install <NAME_OF_PACKAGE>``` in Windows console
 
 
@@ -376,9 +376,7 @@ BSD 2-Clause License
 
 Copyright (c) 2022, Tobias Reinberger All rights reserved.
 
-Cite as V. Vedder and T. Reinberger et al., pyHeart4Fish: Chamber-specific heart phenotype quantification of zebrafish in high-content screens,
-Front. Cell Dev. Biol. Sec. Molecular and Cellular Pathology , Volume 11 - 2023 | doi: 10.3389/fcell.2023.1143852
-
+Cite as ...
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
