@@ -1,0 +1,10 @@
+aicsimageio
+czifile
+aicspylibczi
+matplotlib
+numpy
+opencv_python
+pandas
+Pillow
+scipy
+openpyxl
