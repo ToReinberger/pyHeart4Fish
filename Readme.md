@@ -374,7 +374,7 @@ e.g., by enlarging the area
 
 BSD 2-Clause License
 
-Copyright (c) 2022, Tobias Reinberger All rights reserved.
+Copyright (c) 2022, Tobias Reinberger and Viviana Vedder. All rights reserved.
 
 Cite as V. Vedder and T. Reinberger et al., pyHeart4Fish: Chamber-specific heart phenotype quantification of zebrafish in high-content screens,
 Front. Cell Dev. Biol. Sec. Molecular and Cellular Pathology , Volume 11 - 2023 | doi: 10.3389/fcell.2023.1143852
