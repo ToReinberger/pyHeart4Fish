@@ -24,7 +24,7 @@ https://medium.com/analytics-vidhya/how-to-create-a-readme-md-file-8fb2e8ce24e3>
 
 ## How to install pyHeart4Fish ##
 
-The pyHeart4Fish has been developed and tested in **Windows 11**! <br/>
+The pyHeart4Fish has been developed and tested in **Windows 10 and 11**! <br/>
 If not done yet [download](https://www.python.org/downloads/) 
 and install python >3.7 on your computer, please! Check **ADD TO PATH** when asked.
 
@@ -81,6 +81,7 @@ This Python script opens the main window of pyHeart4Fish (see **Step 2**)
 - [ ] Only **one zebrafish heart** should be imaged at once!
 - [ ] The optimal acquisition time is between 15 s and 30 s!
 - [ ] Make sure that the acquisition time is a bit longer as desired (e.g., 22 s)
+- [ ] Use a frame rate higher than 15 f/s to increase analysis quality for arrhythmias
 
 <br/>
 Accepted file formats:
@@ -208,14 +209,14 @@ However, the tool will later automatically re-rotate the video for analysis!
 To distinguish between background and heart define 1) atrium and 2) ventricle area by ```Drag-and-Draw```.
 Click ```OK``` to start the analysis of all frames / images. <br/>
 Best results yields a rough selection around respective heart chambers (see image below).
-<br/> Make sure that the border enclose all part of the atrium!
+<br/> Make sure that the border encloses all parts of the atrium!
 
 ![define_heart_areas](Screenshots_tutorial/3_define_heart_areas_small.jpeg)
 
 The first processed image is shown after the complete analysis.
-Press  ```Yes``` to show heart beat curves. <br/>
+Press  ```Yes``` to show heartbeat curves. <br/>
 
-The number of analyzed fish hearts is shown in the left top corner (here: 1/2 analyzed)
+The number of analyzed fish hearts is shown in the top left corner (here: 1/2 analyzed)
 
 ![progress_bar](Screenshots_tutorial/4_progress_bar.jpeg)
 
