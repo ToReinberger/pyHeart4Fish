@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyHeart4Fish"
+version = "0.0.1"
+description = "pyHeart4Fish_Heartbeat_analysis_tool"
+authors = [{author = 'Tobias Reinberger', email = 'tobias.reinberger@uni-luebeck.de'},
+]
+readme = "Readme.md"
+license = {file = "LICENSE.md"}
+requires-python = ">=3.7"
+keywords = ["zebrafish", "heartbeat"]
+classifiers = ["Programming Language :: Python :: 3"
+]
+dependencies   = [
+"aicsimageio==4.7.0",
+"czifile==2019.7.2",
+"aicspylibczi==3.0.5",
+"matplotlib",
+"numpy",
+"opencv_python==4.5.5.62",
+"pandas==1.3.4",
+"Pillow==9.2.0",
+"scipy==1.8.0",
+"openpyxl==3.0.10",
+"pyshortcuts"]
+
+[project.urls]
+homepage = "https://www.cardiogenetics-luebeck.de/"
+documentation =  "https://github.com/ToReinberger/pyHeart4Fish_GUI"
+repository = "https://github.com/ToReinberger/pyHeart4Fish_GUI"
