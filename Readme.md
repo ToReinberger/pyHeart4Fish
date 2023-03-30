@@ -260,11 +260,6 @@ The number of analyzed fish hearts is shown in the top left corner (here: 1/2 an
 </table>
 
 
-### Heartbeat curve for bright field ###
-
-![heartbeat_curve_BF](Screenshots_tutorial/6_heart_beat_curves._bright_field.jpeg)
-
-
 
 ### Excel sheet for all heart movies analyzed ###
 
@@ -345,6 +340,11 @@ Once all fish hearts have been analyzed you can choose to open the summary Excel
 </table>
 
 <br/>
+
+### Heartbeat curve for bright field ###
+
+![heartbeat_curve_BF](Screenshots_tutorial/6_heart_beat_curves._bright_field.jpeg)
+
 
 ---
 ## Troubleshooting and FAQ ##
