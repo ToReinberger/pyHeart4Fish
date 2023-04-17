@@ -66,8 +66,8 @@ and install python >3.7 on your computer, please! Check **ADD TO PATH** when ask
 
 ### Step 1) Run heart_beat_GUI.py script ###
 
-1. If a Desktop shortcut has been created, double-click the ```pyHeart4Fish``` icon  (**Installation option 1**)
-2. OR right click on ```pyHeart4Fish_scripts/heart_beat_GUI.py``` > open with python (**Installation option 2**)
+1. If a Desktop shortcut has been created, double-click the ```pyHeart4Fish``` icon  (**Installation option 2**)
+2. OR right click on ```pyHeart4Fish_scripts/heart_beat_GUI.py``` > open with python (**Installation option 1**)
 3. OR in Windows console ``` python <YOUR_STORAGE_PATH>/pyHeart4Fish_scripts/heart_beat_GUI.py``` (**Installation option 2**)
 4. OR start ```heart_beat_GUI.py``` in a Python IDE of your choice (e.g., Pycharm, KITE, Notepad++)
 5. OR double-click on ```pyHeart4Fish_exe/heart_beat_GUI.exe``` (**Installation option 3**)
