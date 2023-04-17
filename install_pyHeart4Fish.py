@@ -20,14 +20,15 @@ def install_packages_for_installation():
 
 
 def install_pyheart4fish():
-    messagebox.showinfo("Download", "Please Download installation file 'pyHeart4Fish-0.0.1.tar.gz' from OneDrive")
-    print("Please Download installation file 'pyHeart4Fish-0.0.1.tar' from OneDrive")
-    webbrowser.open("https://1drv.ms/u/s!AufmqdD8moMXgc5_OE-MnNHlOM-bcQ?e=yPcRcx/pyHeart4Fish-0.0.1.tar.gz")
+    messagebox.showinfo("Download", "Please Download installation file 'pyHeart4Fish_package' from OneDrive and save in <Downloads>")
+    print("Please Download installation file 'pyHeart4Fish_package' from OneDrive\nand save in <Downloads>")
+    webbrowser.open("https://1drv.ms/u/s!AufmqdD8moMXg4YbDNSmpRe2pi6SWw?e=5NEZuC")
+
     # print(user)
     install_file = fr"C:\Users\{user}\Downloads\pyHeart4Fish-0.0.1.tar.gz"
     time.sleep(10)
 
-    while not os.path.isfile(fr"C:\Users\{user}\Downloads\pyHeart4Fish-0.0.1.tar.gz"):
+    while not os.path.isfile(install_file):
         time.sleep(1)
     else:
         messagebox.showinfo("Start installation", "Download complete! Start installation")
