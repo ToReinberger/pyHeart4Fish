@@ -37,7 +37,7 @@ class StartConfigs(tk.Tk):
         self.config_dict["output"] = os.getcwd() + f"/Results_{date_str}"
         self.config_dict["every_sec_img"] = 1
         self.config_dict["file_format"] = ".avi"
-        self.config_dict["acquisition_mode"] = "Immunofluorescence (chamber-specific)"
+        self.config_dict["acquisition_mode"] = "Fluorescence (chamber-specific)"
 
         # create buttons and fields:
         s = ttk.Style()
@@ -165,8 +165,8 @@ class StartConfigs(tk.Tk):
         acquisition_mode = tk.Label(param_frame, text="Acquisition mode:", justify=tk.RIGHT, borderwidth=0,
                                     bg="#3B3E40", fg="white", font=("Bahnschrift", 11))
         acquisition_mode.grid(row=row + 3, column=1, sticky=tk.E, pady=8, ipady=5, padx=10, ipadx=5)
-        acquisition_modes = ["Immunofluorescence (chamber-specific)", "Bright field (only heartbeat)"]
-        acquisition_clicked = tk.StringVar(value="Immunofluorescence (chamber-specific)")
+        acquisition_modes = ["Fluorescence (chamber-specific)", "Bright field (only heartbeat)"]
+        acquisition_clicked = tk.StringVar(value="Fluorescence (chamber-specific)")
 
         self.acquisition_mode = ttk.OptionMenu(param_frame, acquisition_clicked, acquisition_modes[0], *acquisition_modes,
                                                style='my.TMenubutton',
