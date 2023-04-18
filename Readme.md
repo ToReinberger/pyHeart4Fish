@@ -174,7 +174,7 @@ Please <b>unzip</b> data sets before analysis!
 
   <tr>
      <td> <b> Acquisition mode: </b> </td>
-     <td> > Immunofluorescence (chamber-specific): Fluorescent heart is required <br/>
+     <td> > Fluorescence (chamber-specific): Fluorescent heart is required <br/>
             and 10x magnification is desired  <br/>
           > Bright field (only heartbeat): The script is optimized for bright field movies /series <br/> 
             of frames of whole zebrafish in sagittal position (eyes included)
