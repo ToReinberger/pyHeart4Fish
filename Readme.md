@@ -58,6 +58,14 @@ and install python >3.7 on your computer, please! Check **ADD TO PATH** when ask
 * scipy==1.8.0
 * openpyxl==3.0.10
   
+
+#### bug fixes ####
+
+11-05-2023
+1) CziReader from AICSImageIO has been fully replaced czifile package > now all image types can be loaded correctly 
+2) pxiel values of images are now normalied [0 - 255] using cv2.normalize method
+3) .feather output per fish were replaced with .csv, as .feather cannot store single line outputs
+
 ---
 
 ---
@@ -367,13 +375,6 @@ e.g., by enlarging the area
 * If progress bar is on hold, please click ```Next Fish``` as an error has occurred
 
 > **Please contact tobias.reinberger@uni-luebeck.de to report any issues**
-
-### bug fixes ###
-
-11-05-2023
-1) CziReader from AICSImageIO has been fully replaced czifile package > now all image types can be loaded correctly 
-2) pxiel values of images are now normalied [0 - 255] using cv2.normalize method
-3) .feather output per fish were replaced with .csv, as .feather cannot store single line outputs
 
 
 ---
