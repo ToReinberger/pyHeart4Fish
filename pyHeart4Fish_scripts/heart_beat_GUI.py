@@ -8,7 +8,6 @@ import json
 from threading import Thread
 import glob
 import pandas as pd
-import subprocess
 
 
 class StartConfigs(tk.Tk):
@@ -161,7 +160,7 @@ class StartConfigs(tk.Tk):
         self.ow_check.grid(row=row + 2, column=4, pady=10, ipady=0, padx=10, ipadx=0, sticky="w")
 
         # acquisition mode
-        # Immunofluorescence (chamber-specific) or bright field (only heartbeat)
+        # Fluorescence (chamber-specific) or bright field (only heartbeat)
         acquisition_mode = tk.Label(param_frame, text="Acquisition mode:", justify=tk.RIGHT, borderwidth=0,
                                     bg="#3B3E40", fg="white", font=("Bahnschrift", 11))
         acquisition_mode.grid(row=row + 3, column=1, sticky=tk.E, pady=8, ipady=5, padx=10, ipadx=5)
@@ -396,8 +395,11 @@ class StartConfigs(tk.Tk):
             movies = sorted(glob.glob(fr"{project_folder}\*.*"))
 
         # single images
+
+        # !!!!!!!!!!!!!!!!!!!!!!!!!
         # sort into folders per well/ fish using move_images_into_fish_folders.py
-        if file_format == ".png":
+
+        """ if file_format == ".png":
             movies = sorted(glob.glob(fr"{project_folder}\*.png"))
             if len(movies) == 0:
                 movies = sorted(glob.glob(fr"{project_folder}\*.PNG"))
@@ -416,7 +418,8 @@ class StartConfigs(tk.Tk):
             if len(movies) == 0:
                 movies = sorted(glob.glob(fr"{project_folder}\*.JPEG"))
             if len(movies) == 0:
-                movies = sorted(glob.glob(fr"{project_folder}\*.JPG"))
+                movies = sorted(glob.glob(fr"{project_folder}\*.JPG"))"""
+
         if file_format == ".png" or file_format == ".tif" or file_format == ".jpeg":
             movies = []
             for folder in os.listdir(project_folder):
@@ -438,16 +441,17 @@ class StartConfigs(tk.Tk):
             image_counter = f"{idx + 1}/{num_movies}"
             condition_folder_name = movie_file.split("\\")[-1]
             condition_folder_name = condition_folder_name.replace(f"{file_format_}", "")
-            if (os.path.isfile(output_folder + "\\" + condition_folder_name + fr"\{condition_folder_name}.feather")
+            if (os.path.isfile(output_folder + "\\" + condition_folder_name + fr"\{condition_folder_name}.csv")
                     and "overwrite" not in configs["overwrite_data"]):
                 print(movie_file, "already analyzed")
                 continue
 
             script = "heart_beat_GUI_only_one_fish_multiprocessing.py"
             if acq_mode == "Fluorescence (chamber-specific)":
-                # run IF script
+                # run fluorescent script
                 script = "heart_beat_GUI_only_one_fish_multiprocessing.py"
             elif acq_mode == "Bright field (only heartbeat)":
+                # run bright field script
                 script = "heart_beat_BRIGHT_FIELD_HB_only_one_fish_V1.0.0_GUI.py"
             else:
                 print("An unexpected error occurred!")
@@ -470,7 +474,7 @@ class StartConfigs(tk.Tk):
                 python_path = r"C:\Users\*\AppData\Local\Programs\Python\Python*\Lib\site-packages"
                 alt = python_path + rf"\pyHeart4Fish_python\{script}"
                 query = glob.glob(alt)[0] + query.replace(f"{script}", "")
-            os.system(f"py {query}")  # send query to command console
+            os.system(f"python {query}")  # send query to command console
             print(query)
 
         if os.path.isfile("config_file.json"):
@@ -483,7 +487,7 @@ class StartConfigs(tk.Tk):
         combine_excel = True
         if combine_excel:
             print("\nWrite excel")
-            out2 = pd.concat([pd.read_feather(file) for file in glob.glob(output_folder + rf"\*\*.feather")])
+            out2 = pd.concat([pd.read_csv(file) for file in glob.glob(output_folder + rf"\*\*.csv")])
             out2.sort_values("Condition", inplace=True)
             out2.to_excel(output_folder + rf"\{project_name}_Final_results.xlsx", index=False)
 
