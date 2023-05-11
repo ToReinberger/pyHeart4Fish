@@ -42,6 +42,7 @@ class ExtractImages:
         """
         print("\nextract images from avi for ", self.path_in)
         avi_images = []
+        avi_images_org = []
         vidcap = cv2.VideoCapture(self.path_in)
 
         # https://docs.opencv.org/2.4/modules/highgui/doc/reading_and_writing_images_and_video.html#videocapture-get
@@ -70,27 +71,26 @@ class ExtractImages:
                 # make_borders_to_image
                 top, bottom, left, right = [int(width / 8)] * 4
                 gray = cv2.copyMakeBorder(gray, top, bottom, left, right, cv2.BORDER_CONSTANT, value=0)
+                image_from_avi_temp = cv2.copyMakeBorder(image_from_avi, top, bottom, left, right, cv2.BORDER_CONSTANT,
+                                                         value=0)
+                avi_images_org.append(image_from_avi_temp)
                 avi_images.append(gray)
                 # plt.imshow(gray)
                 # plt.show()
         if skip_images_factor > 1:
-            return avi_images[::skip_images_factor], fps / skip_images_factor
+            return avi_images[::skip_images_factor], avi_images_org[::skip_images_factor], fps / skip_images_factor
         else:
-            return avi_images, fps
+            return avi_images, avi_images_org, fps
 
     def extract_images_from_czi(self):
-        reader = CziReader(self.path_in)
-        images_temp = reader.data
-        images_temp = np.asarray(images_temp)
-        print(reader.dims['Y'])
-        images_temp = [cv2.normalize(x[0], None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U) for x in images_temp]
-        # images_temp = [np.asarray(x[0]) for x in images_temp]
-        # images_temp = [[int(x) for x in y] for y in images_temp]
-        # dimension == 1
-        # images_temp [max(y) for y in images_temp]
-        # images_temp = [PIL.Image.fromarray(x) for x in images_temp]
-        # images_temp = [img.convert("L") for img in images_temp]
-        # images_temp = np.asarray(images_temp)
+        # reader = CziReader(self.path_in)  > CziReader can not deal with bright field images of this kind
+        # images_temp = reader.data
+        images_temp = czifile.imread(self.path_in)
+        init_shape = images_temp[0].shape
+        if len(init_shape) > 3:
+            images_temp = [np.reshape(img_temp, (init_shape[1:])) for img_temp in images_temp]
+        images_temp = [cv2.cvtColor(np.asarray(x), cv2.COLOR_BGR2GRAY) for x in images_temp]
+        images_org = images_temp.copy()
         print(len(images_temp))
         # print(images_temp)
         """for img_ in images_temp:
@@ -107,8 +107,7 @@ class ExtractImages:
             # print(elem)
             frame = str(frame)
             aqu_time = frame[frame.find("AcquisitionTime") + len("AcquisitionTime: "): frame.find("DetectorState") - 5].strip()
-            aqu_time = aqu_time.replace(",", "").replace("'", "")
-            aqu_time = aqu_time.split("T")[1][:-1]
+            aqu_time = aqu_time.replace(",", "").replace("'", "").split("T")[1][:-1]
             aqu_time = aqu_time.split(":")
             h = float(aqu_time[0])
             m = float(aqu_time[1])
@@ -126,7 +125,11 @@ class ExtractImages:
             print("Acquisition time (s):", acq_time,
                   "| Frames:", len(frame_time_stamp),
                   "| Frame rate (frames/s):", frames_per_sec)
-        return images_temp, frames_per_sec
+
+        if skip_images_factor > 1:
+            return images_temp[::skip_images_factor], images_org[::skip_images_factor], frames_per_sec / skip_images_factor
+        else:
+            return images_temp, images_org, frames_per_sec
 
     def extract_images_from_mp4(self):
         """
@@ -136,6 +139,7 @@ class ExtractImages:
         """
         print("\nextract images from mp4 for ", self.path_in)
         avi_images = []
+        avi_images_org = []
         vidcap = cv2.VideoCapture(self.path_in)
 
         # https://docs.opencv.org/2.4/modules/highgui/doc/reading_and_writing_images_and_video.html#videocapture-get
@@ -158,27 +162,35 @@ class ExtractImages:
             if success:
                 count = count + 1
                 print(count, end="\r")
+
                 # print(len(image_from_avi), len(image_from_avi[0]), len(image_from_avi[0][0]))
                 gray = cv2.cvtColor(image_from_avi, cv2.COLOR_BGR2GRAY)
                 height, width = gray.shape
                 # make_borders_to_image
                 top, bottom, left, right = [int(width / 8)] * 4
                 gray = cv2.copyMakeBorder(gray, top, bottom, left, right, cv2.BORDER_CONSTANT, value=0)
+                image_from_avi_temp = cv2.copyMakeBorder(image_from_avi, top, bottom, left, right, cv2.BORDER_CONSTANT,
+                                                         value=0)
+                avi_images_org.append(image_from_avi_temp)
                 avi_images.append(gray)
                 # plt.imshow(gray)
                 # plt.show()
         if skip_images_factor > 1:
-            return avi_images[::skip_images_factor], fps / skip_images_factor
+            return avi_images[::skip_images_factor], avi_images_org[::skip_images_factor], fps / skip_images_factor
         else:
-            return avi_images, fps
+            return avi_images, avi_images_org, fps
 
     def extract_images_from_image_folder(self):
         img_files = sorted(glob.glob(self.path_in + f"\\*.*"))
-        # imgs_temp = [cv2.imread(x) for x in img_files]
-        # imgs_temp = [cv2.cvtColor(np.asarray(x), cv2.COLOR_BGR2GRAY) for x in imgs_temp]
-        # height, width = imgs_temp[0].shape
-        # print(height, width)
-        return img_files
+        imgs_temp = [cv2.imread(x) for x in img_files]
+        imgs_temp_org = imgs_temp.copy()
+        imgs_temp = [cv2.cvtColor(np.asarray(x), cv2.COLOR_BGR2GRAY) for x in imgs_temp]
+        height, width = imgs_temp[0].shape
+        print(height, width)
+        if skip_images_factor > 1:
+            return imgs_temp[::skip_images_factor], imgs_temp_org[::skip_images_factor]
+        else:
+            return imgs_temp, imgs_temp_org
 
 
 def distance(point1, point2):
@@ -320,7 +332,8 @@ def find_fish_eye(image_matrix3):
            + (y - int(len(image_matrix3[0]) / 2)) ** 2 > (len(image_matrix3) * 0.78) ** 2
     mask = 255 * mask.astype(int)
 
-    image_matrix3[mask == 255] = 30_000
+    image_matrix3[mask == 255] = np.max(image_matrix3)
+
     """corner = 100
     image_matrix3[:corner, :corner] = 30_000
     image_matrix3[:corner:, -corner:] = 30_000
@@ -354,14 +367,14 @@ def find_fish_eye(image_matrix3):
     plt.scatter(eye_center_1[1], eye_center_1[0], s=100, c="red")
     plt.show()"""
 
-    image_matrix_fish = np.copy(image_matrix_temp)
-    fish = np.where(image_matrix_temp < np.percentile(image_matrix_temp, 4.4))
-    image_matrix_fish[fish] = 30_000
+    # image_matrix_fish = np.copy(image_matrix_temp)
+    # fish = np.where(image_matrix_temp < np.percentile(image_matrix_temp, 4.4))
+    # image_matrix_fish[fish] = 30_000
 
     return eye_center_1, eye_temp_
 
 
-def get_std_dict(x_start_temp, x_end_temp, y_start_temp, y_end_temp, cut_off=850):
+def get_std_dict(x_start_temp, x_end_temp, y_start_temp, y_end_temp, cut_off=5):
     std_matrix = []
     std_max_dict = {}
     n_points = 0
@@ -412,7 +425,7 @@ def get_heartbeat():
         if y_end_temp > y_dim:
             y_end_temp = y_dim - 1
 
-        for cut in [1850, 1650, 1450, 1250, 1050, 850, 800, 650, 550, 450]:
+        for cut in [24, 20, 18, 16, 14, 12, 10, 8, 6, 4]:
             std_matrix, std_max_dict = get_std_dict(x_start_temp, x_end_temp, y_start_temp, y_end_temp, cut_off=cut)
             if len(std_max_dict) != 0:
                 break
@@ -695,18 +708,22 @@ if __name__ == '__main__':
     print("start pyHeart4Fish bright field module")
 
     # extract images from folders/ videos
-    images, image_container = [], []
+    images, org_images, image_container = [], [], []
     image_extracter = ExtractImages(movie_path)
     if file_format == ".avi":
-        images, frames_per_second = image_extracter.extract_images_from_avi()
+        images, org_images, frames_per_second = image_extracter.extract_images_from_avi()
     elif file_format == ".czi":
-        images, frames_per_second = image_extracter.extract_images_from_czi()
+        images,  org_images,frames_per_second = image_extracter.extract_images_from_czi()
     elif file_format == ".mp4":
-        images, frames_per_second = image_extracter.extract_images_from_mp4()
+        images, org_images, frames_per_second = image_extracter.extract_images_from_mp4()
     elif file_format in [".tif", ".jpeg", ".png"]:
-        images = image_extracter.extract_images_from_image_folder()
+        images, org_images = image_extracter.extract_images_from_image_folder()
         frames_per_second = frames_per_second
     images_final = images[:int(cut_movie_at * frames_per_second)]
+    max_value = np.max(images_final)
+    # images_final = [x/max_value)
+    images_final = [cv2.normalize(x, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U) for x in images_final]
+    images_final_org = org_images[:int(cut_movie_at * frames_per_second)]
 
     store_in = main_output_path
     store_in_temp = rf"{main_output_path}\{condition_folder_name}"
@@ -728,18 +745,20 @@ if __name__ == '__main__':
 
     first_img = True
     eye_temp = [0, 0]
-
-    for idx, img in enumerate(images_final):
+    image_show = images_final_org[0]
+    for idx, image_matrix in enumerate(images_final):
 
         print(idx, end="\r")
-        image = Image.open(img)
-        image_show = cv2.imread(img)
-        image_matrix = np.asarray(image)
-
+        # print(np.max(image_matrix))
+        # print(np.mean(image_show))
+        # image = img
+        # image_show = cv2.imread(img)
+        # print(image_matrix.shape, image_show.shape)
         y_min, y_max = int(0.31 * len(image_matrix)), int(0.64 * len(image_matrix))
         x_min, x_max = int(0.12 * len(image_matrix[0])), int(0.82 * len(image_matrix[0]))
         image_matrix2 = np.asarray(image_matrix[y_min:y_max, x_min:x_max])
-        image_show = image_show[y_min:y_max, x_min:x_max]
+        if idx == 0:
+            image_show = image_show[y_min:y_max, x_min:x_max]
 
         if first_img:
             eye_center, eye_temp = find_fish_eye(image_matrix2.copy())
@@ -761,25 +780,32 @@ if __name__ == '__main__':
             y_end = y_dim - 1
 
         image_matrix_new = image_matrix2[y_start: y_end, x_start: x_end]
-        image_show = image_show[y_start: y_end, x_start: x_end]
+        if idx == 0:
+            image_show = image_show[y_start: y_end, x_start: x_end]
         image_matrices.append(image_matrix_new)
     img_matrices = np.asarray(image_matrices)
 
     # create StdDev matrix to find area with most movement
     std_matrix_temp = img_matrices.std(0)
-    std_matrix_temp[std_matrix_temp < 400] = 0
+
+    print(np.mean(std_matrix_temp))
+    # quit()
+    std_matrix_temp[std_matrix_temp < 3] = 0
+    # plt.imshow(image_show)
+    # plt.imshow(std_matrix_temp, cmap="Oranges", alpha=0.6)
+    # plt.show()
     heart_area = np.where(
         std_matrix_temp[:, :int(len(std_matrix_temp[0]) / 2.6)] >
         np.max(std_matrix_temp[:, :int(len(std_matrix_temp[0]) / 2.6)]) * 0.75)
 
     if len(heart_area[0]) == 0:
-        print("NO HEARTBEAT FOUND!!")
+        print("NO HEART AREA / HEARTBEAT FOUND!!")
         output["Freq"] = np.nan
         output["Freq_FFT"] = np.nan
         output["Fit_score"] = np.nan
         # output["Rel_contraction"] = np.nan
         df = pd.DataFrame(data=output, index=[0])
-        df.to_feather(rf"{store_in_temp}\{fish_name}.feather")
+        df.to_csv(rf"{store_in_temp}\{fish_name}.csv", index=False)
         quit()
 
     heart_center = np.percentile(heart_area, 5, axis=1)
@@ -794,14 +820,14 @@ if __name__ == '__main__':
 
     max_dev = np.max(std_matrix_temp)
     print(max_dev)
-    if max_dev < 450 or (max_dev < 900 and abs(heart_center[1] - eye_center_temp[1]) > 150):
+    if max_dev < 3.6 or (max_dev < 5.8 and abs(heart_center[1] - eye_center_temp[1]) > 150):
         print("NO HEARTBEAT FOUND!!")
         output["Freq"] = np.nan
         output["Freq_FFT"] = np.nan
         output["Fit_score"] = np.nan
         # output["Rel_contraction"] = np.nan
         df = pd.DataFrame(data=output, index=[0])
-        df.to_feather(rf"{store_in_temp}\{fish_name}.feather")
+        df.to_csv(rf"{store_in_temp}\{fish_name}.csv", index=False)
         quit()
 
     # parameter not used yet > too imprecise !
@@ -820,7 +846,7 @@ if __name__ == '__main__':
         output["Fit_score"] = 0
         # output["Rel_contraction"] = 0
         df = pd.DataFrame(data=output, index=[0])
-        df.to_feather(rf"{store_in_temp}\{fish_name}.feather")
+        df.to_csv(rf"{store_in_temp}\{fish_name}.csv", index=False)
         quit()
 
     # plot heartbeat as sine curve
@@ -832,6 +858,6 @@ if __name__ == '__main__':
     output["Fit_score"] = out[2]
     print("\n")
     df = pd.DataFrame(data=output, index=[0])
-    df.to_feather(rf"{store_in_temp}\{fish_name}.feather")
+    df.to_csv(rf"{store_in_temp}\{fish_name}.csv", index=False)
     plt.close("all")
 
