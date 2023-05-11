@@ -1,7 +1,6 @@
 """
 Author: Dr. Tobias Reinberger
 Data: 07.05.2022
-Version: beta 1.2 for avi or czi movies
 """
 
 import sys
@@ -17,7 +16,6 @@ from scipy.ndimage import rotate
 from matplotlib.patches import Rectangle
 from scipy import stats
 from scipy.fft import rfft, rfftfreq
-from aicsimageio.readers import CziReader
 import czifile
 from threading import Thread
 import multiprocessing as mp
@@ -497,26 +495,12 @@ class ExtractImages:
             return avi_images, fps
 
     def extract_images_from_czi(self):
-        reader = CziReader(self.path_in)
-        images_temp = reader.data
-        images_temp = np.asarray(images_temp)
-        print(reader.dims['Y'])
-        images_temp = [cv2.normalize(x[0], None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U) for x in images_temp]
-        # images_temp = [np.asarray(x[0]) for x in images_temp]
-        # images_temp = [[int(x) for x in y] for y in images_temp]
-        # dimension == 1
-        # images_temp [max(y) for y in images_temp]
-        # images_temp = [PIL.Image.fromarray(x) for x in images_temp]
-        # images_temp = [img.convert("L") for img in images_temp]
-        # images_temp = np.asarray(images_temp)
+        images_temp = czifile.imread(self.path_in)
+        init_shape = images_temp[0].shape
+        if len(init_shape) > 3:
+            images_temp = [np.reshape(img_temp, (init_shape[1:])) for img_temp in images_temp]
         print(len(images_temp))
-        # print(images_temp)
-        """for img_ in images_temp:
-            plt.imshow(img_)
-            plt.show()"""
-        # w, h = reader.dims['X'][0], reader.dims['Y'][0]
-
-        # get_frame_rate_from_meta
+        images_temp = [cv2.cvtColor(np.asarray(x), cv2.COLOR_BGR2GRAY) for x in images_temp]
         aqu_time = 24
         # a = czifile.CziFile((self.path_in).metadata()
         c = czifile.CziFile(self.path_in).subblocks()
@@ -1302,6 +1286,7 @@ if __name__ == '__main__':
         images = image_extracter.extract_images_from_image_folder()
         frames_per_second = frames_per_second
     images_final = images[:int(cut_movie_at * frames_per_second)]
+    images_final = [cv2.normalize(x, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U) for x in images_final]
 
     num_images = len(images_final)
     print("Number of images: ", num_images)
@@ -1356,9 +1341,10 @@ if __name__ == '__main__':
     os.remove(main_output_path + "/config_file_processed.json")
     # store data in excel file
 
-    print("\n Output parameter stored in Excel sheet")
+    print("\n Output parameter stored in csv")
     for k, v in value_dict.items():
         print(k, ": ", v)
     df = pd.DataFrame(data=value_dict, index=[0])
-    df.to_feather(sub_output_path + fr"\{condition_folder_name}.feather", index=False)
+    print(df)
+    df.to_csv(sub_output_path + fr"\{condition_folder_name}.csv", index=False)
 
