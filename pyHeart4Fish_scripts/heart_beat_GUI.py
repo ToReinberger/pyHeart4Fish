@@ -444,7 +444,7 @@ class StartConfigs(tk.Tk):
                 continue
 
             script = "heart_beat_GUI_only_one_fish_multiprocessing.py"
-            if acq_mode == "Immunofluorescence (chamber-specific)":
+            if acq_mode == "Fluorescence (chamber-specific)":
                 # run IF script
                 script = "heart_beat_GUI_only_one_fish_multiprocessing.py"
             elif acq_mode == "Bright field (only heartbeat)":
