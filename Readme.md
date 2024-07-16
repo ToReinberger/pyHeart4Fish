@@ -61,6 +61,11 @@ and install python >3.7 on your computer, please! Check **ADD TO PATH** when ask
 
 #### bug fixes ####
 
+16-07-2024
+Installation issues 
+1) aicsimageio or aicspylibczi needs Microsoft Visual C++ 14.0 or greater
+2) install from [htt](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+
 11-05-2023
 1) CziReader from AICSImageIO has been fully replaced czifile package > now all image types can be loaded correctly 
 2) pxiel values of images are now normalied [0 - 255] using cv2.normalize method
