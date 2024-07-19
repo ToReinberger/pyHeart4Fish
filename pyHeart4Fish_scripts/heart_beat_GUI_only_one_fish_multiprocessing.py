@@ -1109,7 +1109,7 @@ def process_raw_data_and_plot_heart_beat_curve():
 
     # plot heartbeat signals
     plt.figure(fish_heart_file, figsize=(10, 6))
-    plt.title(fish_heart_file)
+    # plt.title(fish_heart_file) > corrupts the image somehow ! 
     plt.subplots_adjust(hspace=0.56)
     x_values = [i/len(ventricle_values) * cut_movie_at for i in range(1, len(ventricle_values) + 1)]
 
