@@ -881,6 +881,16 @@ def process_other_images_and_plot_hearts(image, param):
         threshold = threshold * 1.1
     heart = np.where(img_temp > threshold)
 
+    # try to find the heart boundaries by reducing the threshold
+    attempts = 0
+    while len(heart[0]) < 100:
+        print("redefine threshold", threshold)
+        threshold = threshold * 0.95
+        heart = np.where(img_temp > threshold)
+        attempts += 1
+        if attempts == 30:  # down to ~22 % of threshold
+            raise ValueError("Cannot find any heart! Please skip this fish!")
+    
     # crop image
     x_min, x_max = int(np.min(heart[1]) * 0.80), int(np.max(heart[1]) * 1.20)
     y_min, y_max = int(np.min(heart[0]) * 0.65), int(np.max(heart[0]) * 1.25)
