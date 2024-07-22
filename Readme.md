@@ -30,44 +30,34 @@ and install python >3.7 on your computer, please! Check **ADD TO PATH** when ask
 
 ## Installation ##
 
-### Option 1: Download ```pyHeart4Fish_scripts``` folder ###
-1. Download pyHeart4Fish_python folder from [GitHub/ToReinberger/pyHeart4Fish](https://github.com/ToReinberger/pyHeart4Fish)
+### Download ```pyHeart4Fish_scripts``` folder ###
+1. Download pyHeart4Fish_scripts folder from [GitHub/ToReinberger/pyHeart4Fish](https://github.com/ToReinberger/pyHeart4Fish)
 2. Move the complete folder from ./downloads to a desired storage place <br/> 
    (e.g., C:\Users\<user_name>\Desktop\pyHeart4Fish_python)
 3. Open command line in Windows (e.g., by typing ```cmd``` in Windows search field)
 4. Move to the pyHeart4Fish folder by  typing ```cd C:\Users\<YOUR_USERNAME>\Desktop\pyHeart4Fish_scripts```
-5. Install required packages by typing ```pip install -r requirements.txt``` <br/>
-   or ```pip install -r requirements_for_installation.txt```
+5. Install required packages by typing ```pip install -r requirements.txt```
 
-### Option 2: Download and run install ```install_pyHeart4Fish.py```  ###
-1. Download ```install_pyHeart4Fish.py``` from [GitHub/ToReinberger/pyHeart4Fish](https://github.com/ToReinberger/pyHeart4Fish)
-2. Start ```install_pyHeart4Fish.py``` > double click  OR right click > open with Python
-3. Follow instructions
+
 
 
 #### Required python packages: ####
 
-* aicsimageio==4.7.0
-* czifile==2019.7.2
-* aicspylibczi==3.0.5
+* czifile
+* aicspylibczi
 * matplotlib>=3.5.1
-* numpy==1.21.2
-* opencv_python==4.5.5.62
+* numpy>=1.21.2
+* opencv_python>=4.5.5.62
 * pandas>=1.3.4
 * Pillow>=9.2.0
-* scipy==1.8.0
-* openpyxl==3.0.10
+* scipy>=1.8.0
+* openpyxl>=3.0.10
   
 
 #### bug fixes ####
 
-16-07-2024
-Installation issues 
-1) aicsimageio or aicspylibczi needs Microsoft Visual C++ 14.0 or greater
-2) install from [htt](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
-
 11-05-2023
-1) CziReader from AICSImageIO has been fully replaced czifile package > now all image types can be loaded correctly 
+1) CziReader from AICSImageIO has been fully replaced with the czifile package > now all image types can be loaded correctly 
 2) pxiel values of images are now normalied [0 - 255] using cv2.normalize method
 3) .feather output per fish was replaced with .csv, as .feather cannot store single line outputs
 
@@ -78,12 +68,9 @@ Installation issues
 ## Tutorial - How to run pyHeart4Fish ##
 
 ### Step 1) Run heart_beat_GUI.py script ###
-
-1. If a Desktop shortcut has been created, double-click the ```pyHeart4Fish``` icon  (**Installation option 2**)
-2. OR right click on ```pyHeart4Fish_scripts/heart_beat_GUI.py``` > open with python (**Installation option 1**)
-3. OR in Windows console ``` python <YOUR_STORAGE_PATH>/pyHeart4Fish_scripts/heart_beat_GUI.py``` (**Installation option 2**)
-4. OR start ```heart_beat_GUI.py``` in a Python IDE of your choice (e.g., Pycharm, KITE, Notepad++)
-5. OR double-click on ```pyHeart4Fish_exe/heart_beat_GUI.exe``` (**Installation option 3**)
+1. OR right click on ```pyHeart4Fish_scripts/pyHeart4Fish_app.py``` > open with python
+2. OR in Windows console ``` python <YOUR_STORAGE_PATH>/pyHeart4Fish_scripts/pyHeart4Fish_app.py```
+3. OR start ```pyHeart4Fish_app.py``` in a Python IDE of your choice (e.g., Pycharm, KITE, Notepad++)
 
 This Python script opens the main window of pyHeart4Fish (see **Step 2**)
 
