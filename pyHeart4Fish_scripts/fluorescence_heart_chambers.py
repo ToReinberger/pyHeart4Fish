@@ -888,7 +888,7 @@ def process_other_images_and_plot_hearts(image, param):
         heart = np.where(img_temp > threshold)
         attempts += 1
         if attempts == 30:  # down to ~22 % of threshold
-            raise ValueError("Cannot find any heart! Please skip this fish!")
+            messagebox.showinfo("Cannot find a heart or movie is defect! Please skip this fish!")
 
     # crop image
     x_min, x_max = int(np.min(heart[1]) * 0.80), int(np.max(heart[1]) * 1.20)
