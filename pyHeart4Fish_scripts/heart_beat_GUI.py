@@ -20,7 +20,7 @@ class StartConfigs(tk.Tk):
         # self.attributes('-fullscreen', True)
         # self.geometry(f'{int(screen_width /2.2)}x
         # {int(screen_height/ 2.8)}+{int(screen_width /9)}+{int(screen_height /8)}')
-        self.geometry(f'830x410+{int(screen_width /9)}+{int(screen_height /8)}')
+        self.geometry(f'830x410+{int(screen_width / 9)}+{int(screen_height / 8)}')
         self.resizable(0, 0)
         self.title("pyHeart4Fish")
         self.configure(bg="#3B3E40")
@@ -52,8 +52,8 @@ class StartConfigs(tk.Tk):
 
         input_ = tk.StringVar()
 
-        self.input_entry = tk.Entry(browser_frame, textvariable=input_,  width=80, borderwidth=0,)  # show="*"
-        self.input_entry.grid(row=0,  column=1, columnspan=50, pady=10, ipady=5, padx=10)
+        self.input_entry = tk.Entry(browser_frame, textvariable=input_, width=80, borderwidth=0, )  # show="*"
+        self.input_entry.grid(row=0, column=1, columnspan=50, pady=10, ipady=5, padx=10)
         # entry.bind("<Return>", func=StartMenu.welcomeMessage)
         folder_btn = tk.Button(browser_frame, text='Open browser', borderwidth=0, command=self.open_folder)
         folder_btn.configure(width=15)
@@ -65,9 +65,9 @@ class StartConfigs(tk.Tk):
         output_label.grid(row=1, column=0, sticky=tk.E)
         output_ = str(self.input_entry.get()) + "_Results"
 
-        self.output_field = tk.Entry(browser_frame, text=output_,  width=80, borderwidth=0,)
-        self.output_field.grid(row=1,  column=1, columnspan=50, pady=10, ipady=5, padx=10)
-        folder_btn2 = tk.Button(browser_frame, text='Change output',  borderwidth=0,
+        self.output_field = tk.Entry(browser_frame, text=output_, width=80, borderwidth=0, )
+        self.output_field.grid(row=1, column=1, columnspan=50, pady=10, ipady=5, padx=10)
+        folder_btn2 = tk.Button(browser_frame, text='Change output', borderwidth=0,
                                 command=self.change_output_folder)
         folder_btn2.configure(width=15)
         folder_btn2.grid(row=1, column=56, ipadx=0, ipady=3, padx=10, pady=5)
@@ -92,7 +92,7 @@ class StartConfigs(tk.Tk):
 
         self.frames = Entry(param_frame, text="10.0", width=10, borderwidth=0,
                             font=("Bahnschrift", 11), justify=tk.CENTER)
-        self.frames.grid(row=row,  column=2, pady=10, ipady=5, padx=10)
+        self.frames.grid(row=row, column=2, pady=10, ipady=5, padx=10)
         self.frames.insert(0, "29")
         self.frames.bind('<Return>', self.check_frames_per_sec)
         self.frames.bind('<Leave>', self.check_frames_per_sec)
@@ -104,7 +104,7 @@ class StartConfigs(tk.Tk):
         sec_img.grid(row=row, column=3, sticky=tk.E, pady=5, ipady=5, padx=10, ipadx=5)
         self.skip_images = tk.Entry(param_frame, text="0", width=10, borderwidth=0,
                                     font=("Bahnschrift", 11), justify=tk.CENTER)  # show="*"
-        self.skip_images.grid(row=row,  column=4, pady=10, ipady=5, padx=10)
+        self.skip_images.grid(row=row, column=4, pady=10, ipady=5, padx=10)
         self.skip_images.insert(0, "0")
         self.skip_images.bind('<Return>', self.change_fbs)
         self.skip_images.bind('<Leave>', self.check_skip_images)
@@ -118,7 +118,7 @@ class StartConfigs(tk.Tk):
         ps.grid(row=row + 1, column=1, sticky=tk.E, pady=5, ipady=5, padx=10, ipadx=5)
         self.pixel = tk.Entry(param_frame, text="1.3", width=10, borderwidth=0,
                               font=("Bahnschrift", 11), justify=tk.CENTER)  # show="*"
-        self.pixel.grid(row=row + 1,  column=2, pady=5, ipady=5, padx=10)
+        self.pixel.grid(row=row + 1, column=2, pady=5, ipady=5, padx=10)
         self.pixel.insert(0, "0.2522")
         self.pixel.bind('<Return>', self.check_pixel_entry)
         self.pixel.bind('<Leave>', self.check_pixel_entry)
@@ -129,8 +129,8 @@ class StartConfigs(tk.Tk):
                        bg="#3B3E40", fg="white", font=("Bahnschrift", 11))
         cut.grid(row=row + 1, column=3, sticky=tk.E, pady=5, ipady=5, padx=10, ipadx=5)
         self.cut_entry = tk.Entry(param_frame, text="20", width=10, borderwidth=0,
-                             font=("Bahnschrift", 11), justify=tk.CENTER)  # show="*"
-        self.cut_entry.grid(row=row + 1,  column=4, pady=5, ipady=5, padx=10)
+                                  font=("Bahnschrift", 11), justify=tk.CENTER)  # show="*"
+        self.cut_entry.grid(row=row + 1, column=4, pady=5, ipady=5, padx=10)
         self.cut_entry.insert(0, "20.0")
         self.cut_entry.bind('<Return>', self.check_cut_entry)
         self.cut_entry.bind('<Leave>', self.check_cut_entry)
@@ -139,12 +139,12 @@ class StartConfigs(tk.Tk):
         # file format
         format_label = tk.Label(param_frame, text="File format:", justify=tk.RIGHT, borderwidth=0,
                                 bg="#3B3E40", fg="white", font=("Bahnschrift", 11))
-        format_label.grid(row=row+2, column=1, sticky=tk.E, pady=10, ipady=5, padx=10, ipadx=5)
+        format_label.grid(row=row + 2, column=1, sticky=tk.E, pady=10, ipady=5, padx=10, ipadx=5)
         file_formats = [".avi", ".czi", ".mp4", ".png", ".tif", ".jpeg"]
         clicked = tk.StringVar(value=".avi")
         s.configure('my.TMenubutton', background="white", font=("Bahnschrift", 11))
         self.file_format = ttk.OptionMenu(param_frame, clicked, file_formats[0], *file_formats,
-                                          style='my.TMenubutton', command=lambda x:  self.write_file_format(x))
+                                          style='my.TMenubutton', command=lambda x: self.write_file_format(x))
         self.file_format.config(width=5)
         self.file_format.grid(row=row + 2, column=2, sticky=tk.E, pady=10, padx=18, ipadx=5)
 
@@ -167,34 +167,35 @@ class StartConfigs(tk.Tk):
         acquisition_modes = ["Fluorescence (chamber-specific)", "Bright field (only heartbeat)"]
         acquisition_clicked = tk.StringVar(value="Fluorescence (chamber-specific)")
 
-        self.acquisition_mode = ttk.OptionMenu(param_frame, acquisition_clicked, acquisition_modes[0], *acquisition_modes,
+        self.acquisition_mode = ttk.OptionMenu(param_frame, acquisition_clicked, acquisition_modes[0],
+                                               *acquisition_modes,
                                                style='my.TMenubutton',
-                                               command=lambda x:  self.write_acquisition_mode(x))
+                                               command=lambda x: self.write_acquisition_mode(x))
         self.acquisition_mode.config(width=36)
         self.acquisition_mode.grid(row=row + 3, column=2, sticky=tk.E, pady=8, padx=18, ipadx=5, columnspan=4)
 
         # start | help |  exit bottoms in start_frame
         w = 18
         start_frame = ttk.Frame(self, width=int(self.winfo_screenwidth() / 1.8), height=20)
-        start_frame.grid(row=3,  sticky="ew")
+        start_frame.grid(row=3, sticky="ew")
         start_frame['padding'] = (150, 5, 10, 10)
 
         # start
         start_button = tk.Button(start_frame, text='Start',
                                  command=self.start_program,
-                                 borderwidth=0,)
+                                 borderwidth=0, )
         start_button.configure(width=w, height=2)
         start_button.grid(row=1, column=2, padx=20, ipadx=4, ipady=2)
 
         # help
         help_button = tk.Button(start_frame, text='Help',
                                 command=self.show_help,
-                                borderwidth=0,)
+                                borderwidth=0, )
         help_button.configure(width=w, height=2)
         help_button.grid(row=1, column=3, padx=20, ipadx=4, ipady=2)
 
         # exit
-        exit_button = tk.Button(start_frame, text='Exit', command=self.exit_all, borderwidth=0,)
+        exit_button = tk.Button(start_frame, text='Exit', command=self.exit_all, borderwidth=0, )
         exit_button.configure(width=w, height=2)
         exit_button.grid(row=1, column=4, padx=20, ipadx=4, ipady=2)
 
@@ -351,8 +352,11 @@ class StartConfigs(tk.Tk):
         time.sleep(0.2)
         # start_window.destroy()
         # start_window.quit()
+        # prepare threads
         t1 = Thread(target=self.run_program)
         t1.daemon = True
+        # This turns the thread into a daemon, which automatically
+        # shuts down the secondary thread when the main thread exits.
         t1.start()
 
     def exit_all(self):
@@ -394,32 +398,6 @@ class StartConfigs(tk.Tk):
         else:
             movies = sorted(glob.glob(fr"{project_folder}\*.*"))
 
-        # single images
-
-        # !!!!!!!!!!!!!!!!!!!!!!!!!
-        # sort into folders per well/ fish using move_images_into_fish_folders.py
-
-        """ if file_format == ".png":
-            movies = sorted(glob.glob(fr"{project_folder}\*.png"))
-            if len(movies) == 0:
-                movies = sorted(glob.glob(fr"{project_folder}\*.PNG"))
-        elif file_format == ".tif":
-            movies = sorted(glob.glob(fr"{project_folder}\*.tif"))
-            if len(movies) == 0:
-                movies = sorted(glob.glob(fr"{project_folder}\*.TIF"))
-            if len(movies) == 0:
-                movies = sorted(glob.glob(fr"{project_folder}\*.tiff"))
-            if len(movies) == 0:
-                movies = sorted(glob.glob(fr"{project_folder}\*.TIFF"))
-        elif file_format == ".jpeg":
-            movies = sorted(glob.glob(fr"{project_folder}\*.jpeg"))
-            if len(movies) == 0:
-                movies = sorted(glob.glob(fr"{project_folder}\*.jpg"))
-            if len(movies) == 0:
-                movies = sorted(glob.glob(fr"{project_folder}\*.JPEG"))
-            if len(movies) == 0:
-                movies = sorted(glob.glob(fr"{project_folder}\*.JPG"))"""
-
         if file_format == ".png" or file_format == ".tif" or file_format == ".jpeg":
             movies = []
             for folder in os.listdir(project_folder):
@@ -446,13 +424,13 @@ class StartConfigs(tk.Tk):
                 print(movie_file, "already analyzed")
                 continue
 
-            script = "heart_beat_GUI_only_one_fish_multiprocessing.py"
+            script = "fluorescence_heart_chambers.py"
             if acq_mode == "Fluorescence (chamber-specific)":
                 # run fluorescent script
-                script = "heart_beat_GUI_only_one_fish_multiprocessing.py"
+                script = "fluorescence_heart_chambers.py"
             elif acq_mode == "Bright field (only heartbeat)":
                 # run bright field script
-                script = "heart_beat_BRIGHT_FIELD_HB_only_one_fish_V1.0.0_GUI.py"
+                script = "bright_field_whole_fish.py"
             else:
                 print("An unexpected error occurred!")
 
@@ -506,22 +484,23 @@ class StartConfigs(tk.Tk):
     @staticmethod
     def show_help():
         # open help window
-        tk.messagebox.showinfo("Help desk", "Please ask Tobias Reinberger for help! Documentation is under construction!")
+        tk.messagebox.showinfo("Help desk",
+                               "Please ask Tobias Reinberger (tobias.reinberger@uni-luebeck.de "
+                               "for help! Documentation is under construction!")
         return
 
 
 if __name__ == '__main__':
-
     """
-    
+
     * define input folder, output folder and other configs in this GUI main window
     * by clicking >Start< the script heart_beat_GUI_MAIN.py is executed
-    
+
     * PIXEL SIZE INFO
     * 65 pixel = 100 µm --> 10x magnification = 65 pixel = 10 µm
       for 8x ist die Pixelgröße: 1.703 µm
       168px = 525µm für 6.3x  = 3.125 µm pro pixel
-      
+
     """
 
     print(datetime.datetime.now())
